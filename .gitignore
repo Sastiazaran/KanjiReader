@@ -1,0 +1,32 @@
+# Dependencias y builds
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Clones y medios locales (grandes, regenerables; ver vendor/README.md)
+vendor/jadb/
+vendor/kanji-data-media/
+vendor/jadb.sqlite
+
+# Fuentes EDRDG descargadas para construir jadb
+vendor/jadb/data/tmp/
