@@ -67,4 +67,4 @@ que se construyen las historias mnemotécnicas de la app.
 
 ## Medios en Vite (desarrollo)
 
-El archivo [`frontend/vite.config.ts`](../frontend/vite.config.ts) monta `vendor/kanji-data-media` en **`/kanji-media`**. En producción, define `VITE_KANJI_MEDIA_BASE` apuntando a un origen que sirva esos archivos (o un subconjunto).
+El archivo [`frontend/vite.config.ts`](../frontend/vite.config.ts) monta `vendor/kanji-data-media` en **`/kanji-media`** con soporte HTTP Range (`206` / `Accept-Ranges`), necesario para que Safari reproduzca los MP4 de trazos. En producción, define `VITE_KANJI_MEDIA_BASE` apuntando a un origen que sirva esos archivos (o un subconjunto) **también con Range**.

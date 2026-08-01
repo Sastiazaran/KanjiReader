@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 import { Icon } from '../components/ui/Icon'
 
+const DONATE_URL =
+  'https://www.paypal.com/donate/?hosted_button_id=26C3BSMGJGESY'
+
 const SOURCES = [
   {
     name: 'KANJIDIC2',
@@ -70,6 +73,29 @@ export function AboutPage() {
           corta que ayuda a recordar el significado. No son etimologías
           históricas: son trucos de memoria pensados para quien empieza.
         </p>
+      </section>
+
+      <section className="rounded-3xl border border-white/8 bg-white/[0.03] px-5 py-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-bold text-white/80">
+              ¿Te está ayudando a aprender?
+            </p>
+            <p className="mt-0.5 text-xs leading-relaxed text-[var(--muted)]">
+              Si quieres, puedes invitarme un café. Es opcional y mantiene el
+              proyecto vivo.
+            </p>
+          </div>
+          <a
+            href={DONATE_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="pressable inline-flex shrink-0 items-center gap-2 rounded-2xl border border-rose-300/25 bg-rose-500/10 px-4 py-2.5 text-sm font-bold text-rose-100 hover:bg-rose-500/20"
+          >
+            <Icon name="heart" className="h-4 w-4 text-rose-300" />
+            Invítame un café
+          </a>
+        </div>
       </section>
 
       <Link

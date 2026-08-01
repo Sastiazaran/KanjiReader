@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { useKanjiData } from '../hooks/useKanjiData'
 import { useProgressRows } from '../hooks/useGameState'
 import { MASTERED_LEVEL } from '../lib/progress-service'
@@ -6,8 +6,20 @@ import { StoryCard } from '../components/StoryCard'
 import { ProgressBar } from '../components/ui/ProgressBar'
 import { Icon } from '../components/ui/Icon'
 
+interface DetailLocationState {
+  from?: string
+}
+
+/** Only allow same-app absolute paths (blocks open redirects). */
+function safeReturnPath(value: unknown): string | null {
+  if (typeof value !== 'string') return null
+  if (!value.startsWith('/') || value.startsWith('//')) return null
+  return value
+}
+
 export function KanjiDetailPage() {
   const { id: idParam } = useParams()
+  const location = useLocation()
   const id = Number(idParam)
   const { loading, error, getKanjiById, vocabByKanjiId, mediaMap } = useKanjiData()
   const progressRows = useProgressRows()
@@ -15,6 +27,9 @@ export function KanjiDetailPage() {
   const kanji = Number.isFinite(id) ? getKanjiById(id) : undefined
   const progress = progressRows.find((row) => row.kanjiId === id)
   const vocab = kanji ? (vocabByKanjiId.get(kanji.id) ?? []) : []
+  const returnTo = safeReturnPath(
+    (location.state as DetailLocationState | null)?.from,
+  )
 
   if (loading) return <p className="text-center text-[var(--muted)]">Cargando…</p>
   if (error) {
@@ -40,11 +55,11 @@ export function KanjiDetailPage() {
   return (
     <div className="space-y-5">
       <Link
-        to="/kanjis"
+        to={returnTo ?? '/kanjis'}
         className="inline-flex items-center gap-1 text-sm font-bold text-[var(--muted)] hover:text-white"
       >
         <Icon name="back" className="h-4 w-4" />
-        Todos los kanji
+        {returnTo ? 'Volver a la lección' : 'Todos los kanji'}
       </Link>
 
       <StoryCard kanji={kanji} mediaMap={mediaMap} vocab={vocab} />

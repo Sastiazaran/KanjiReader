@@ -17,6 +17,10 @@ export interface QuizQuestion {
   help: string
   options: QuizOption[]
   answerId: string
+  /** Texto corto al fallar: respuesta correcta + pista amigable. */
+  explanation: string
+  /** Historia mnemónica opcional para reforzar el recuerdo. */
+  storyHint: string | null
 }
 
 function shuffle<T>(list: T[]): T[] {
@@ -48,6 +52,29 @@ function firstReading(kanji: KanjiRecord): string | null {
   return kanji.kunyomi[0] ?? kanji.onyomi[0] ?? null
 }
 
+function readingsLabel(kanji: KanjiRecord): string | null {
+  const readings = [...kanji.kunyomi, ...kanji.onyomi].filter(Boolean)
+  return readings.length ? readings.slice(0, 2).join(' · ') : null
+}
+
+/** Explicación infantil al fallar, según el tipo de pregunta. */
+function buildExplanation(kanji: KanjiRecord, kind: QuestionKind): string {
+  const reading = readingsLabel(kanji)
+  if (kind === 'kanji') {
+    return `La palabra «${kanji.keyword}» se escribe ${kanji.kanji}.${
+      reading ? ` Se lee ${reading}.` : ''
+    }`
+  }
+  if (kind === 'reading') {
+    return `${kanji.kanji} significa «${kanji.keyword}» y se lee ${
+      reading ?? 'así'
+    }.`
+  }
+  return `${kanji.kanji} significa «${kanji.keyword}».${
+    reading ? ` Se lee ${reading}.` : ''
+  }`
+}
+
 function buildQuestion(
   kanji: KanjiRecord,
   kind: QuestionKind,
@@ -55,6 +82,8 @@ function buildQuestion(
 ): QuizQuestion | null {
   const distractors = pickDistractors(kanji, pool, 3)
   if (distractors.length < 3) return null
+  const explanation = buildExplanation(kanji, kind)
+  const storyHint = kanji.story?.trim() ? kanji.story.trim() : null
 
   if (kind === 'kanji') {
     const options = shuffle([kanji, ...distractors]).map((k) => ({
@@ -71,6 +100,8 @@ function buildQuestion(
       help: '¿Cuál es el kanji de esta palabra?',
       options,
       answerId: String(kanji.id),
+      explanation,
+      storyHint,
     }
   }
 
@@ -95,6 +126,8 @@ function buildQuestion(
       help: '¿Cómo se lee este kanji?',
       options,
       answerId: answer,
+      explanation,
+      storyHint,
     }
   }
 
@@ -112,6 +145,8 @@ function buildQuestion(
     help: '¿Qué significa este kanji?',
     options,
     answerId: String(kanji.id),
+    explanation,
+    storyHint,
   }
 }
 

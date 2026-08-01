@@ -2,6 +2,11 @@ import { Link } from 'react-router-dom'
 import type { KanjiRecord, MediaMap, VocabRecord } from '../types/data'
 import { importanceLabel } from '../lib/game'
 import { getExampleAudioUrl } from '../lib/media'
+import {
+  MAX_DISPLAYED_READINGS,
+  READING_SEPARATOR,
+  readingsToRomajiLine,
+} from '../lib/romaji'
 import { AudioPlayer } from './AudioPlayer'
 import { StrokeOrder } from './StrokeOrder'
 import { Icon } from './ui/Icon'
@@ -11,6 +16,8 @@ interface StoryCardProps {
   mediaMap: MediaMap
   vocab: VocabRecord[]
   showLink?: boolean
+  /** Internal path to restore after opening the full kanji sheet (e.g. stage learn card). */
+  returnTo?: string
 }
 
 const TONE_STYLES = {
@@ -20,7 +27,46 @@ const TONE_STYLES = {
   low: 'bg-white/10 text-[var(--muted)]',
 } as const
 
-export function StoryCard({ kanji, mediaMap, vocab, showLink }: StoryCardProps) {
+const EMPTY_READING = '—'
+
+function ReadingBlock({
+  label,
+  readings,
+}: {
+  label: string
+  readings: string[]
+}) {
+  const shown = readings.slice(0, MAX_DISPLAYED_READINGS)
+  const romajiLine = readingsToRomajiLine(shown)
+
+  return (
+    <div className="rounded-2xl bg-white/5 p-3">
+      <p className="text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
+        {label}
+      </p>
+      {shown.length ? (
+        <>
+          <p className="text-lg text-white" lang="ja">
+            {shown.join(READING_SEPARATOR)}
+          </p>
+          {romajiLine ? (
+            <p className="text-xs text-[var(--muted)]">{romajiLine}</p>
+          ) : null}
+        </>
+      ) : (
+        <p className="text-lg text-white">{EMPTY_READING}</p>
+      )}
+    </div>
+  )
+}
+
+export function StoryCard({
+  kanji,
+  mediaMap,
+  vocab,
+  showLink,
+  returnTo,
+}: StoryCardProps) {
   const importance = importanceLabel(kanji.frequency)
   const audioUrl = getExampleAudioUrl(mediaMap, kanji.kanji)
   const example = vocab[0]
@@ -79,22 +125,8 @@ export function StoryCard({ kanji, mediaMap, vocab, showLink }: StoryCardProps) 
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <div className="rounded-2xl bg-white/5 p-3">
-          <p className="text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
-            Lectura on (china)
-          </p>
-          <p className="text-lg text-white" lang="ja">
-            {kanji.onyomi.length ? kanji.onyomi.slice(0, 3).join('・') : '—'}
-          </p>
-        </div>
-        <div className="rounded-2xl bg-white/5 p-3">
-          <p className="text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
-            Lectura kun (japonesa)
-          </p>
-          <p className="text-lg text-white" lang="ja">
-            {kanji.kunyomi.length ? kanji.kunyomi.slice(0, 3).join('・') : '—'}
-          </p>
-        </div>
+        <ReadingBlock label="Lectura on (china)" readings={kanji.onyomi} />
+        <ReadingBlock label="Lectura kun (japonesa)" readings={kanji.kunyomi} />
       </div>
 
       {example && (
@@ -123,6 +155,7 @@ export function StoryCard({ kanji, mediaMap, vocab, showLink }: StoryCardProps) 
       {showLink && (
         <Link
           to={`/kanji/${kanji.id}`}
+          state={returnTo ? { from: returnTo } : undefined}
           className="inline-flex items-center gap-1 text-sm font-bold text-violet-300 hover:text-violet-200"
         >
           Ver ficha completa

@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import type { QuizQuestion } from '../lib/quiz'
 import { MAX_HEARTS, xpForAnswer } from '../lib/game'
 import { recordAnswer } from '../lib/progress-service'
+import { playSfx } from '../lib/sfx'
 import { ProgressBar } from './ui/ProgressBar'
 import { Icon } from './ui/Icon'
 
@@ -54,6 +55,7 @@ export function QuizGame({
       setSelectedId(optionId)
       setPhase('feedback')
       void recordAnswer(question.kanjiId, wasCorrect)
+      playSfx(wasCorrect ? 'correct' : 'wrong')
 
       if (wasCorrect) {
         const gain = xpForAnswer(combo)
@@ -76,6 +78,7 @@ export function QuizGame({
     const outOfHearts = useHearts && hearts <= 0
     const isLast = index >= questions.length - 1
     if (outOfHearts || isLast) {
+      playSfx('finish')
       onFinish({
         correct,
         total: index + 1,
@@ -208,22 +211,39 @@ export function QuizGame({
 
       {phase === 'feedback' && (
         <div
-          className={`animate-pop flex flex-wrap items-center justify-between gap-3 rounded-3xl p-4 ${
+          className={`animate-pop space-y-3 rounded-3xl p-4 ${
             isCorrect ? 'bg-emerald-500/15' : 'bg-rose-500/15'
           }`}
         >
-          <p className="font-extrabold text-white">
-            {isCorrect ? '¡Muy bien!' : 'Casi. Vuelve a mirarlo con calma.'}
-          </p>
-          <button
-            type="button"
-            onClick={goNext}
-            className="pressable rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-fuchsia-500/30"
-          >
-            {index >= questions.length - 1 || (useHearts && hearts <= 0)
-              ? 'Ver resultado'
-              : 'Continuar'}
-          </button>
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <p className="font-extrabold text-white">
+              {isCorrect ? '¡Muy bien!' : 'Casi. Mira la respuesta correcta:'}
+            </p>
+            <button
+              type="button"
+              onClick={goNext}
+              className="pressable rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-fuchsia-500/30"
+            >
+              {index >= questions.length - 1 || (useHearts && hearts <= 0)
+                ? 'Ver resultado'
+                : 'Continuar'}
+            </button>
+          </div>
+          {!isCorrect && (
+            <div className="space-y-2 rounded-2xl bg-black/20 px-4 py-3 text-left">
+              <p className="text-sm leading-relaxed text-white">
+                {question.explanation}
+              </p>
+              {question.storyHint && (
+                <p className="text-sm leading-relaxed text-amber-100/90">
+                  <span className="font-extrabold text-amber-200">
+                    Cuento mágico:{' '}
+                  </span>
+                  {question.storyHint}
+                </p>
+              )}
+            </div>
+          )}
         </div>
       )}
     </section>

@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useKanjiData } from '../hooks/useKanjiData'
 import { useReviewQueue } from '../hooks/useGameState'
-import { buildQuiz } from '../lib/quiz'
+import { buildQuiz, type QuizQuestion } from '../lib/quiz'
 import { commitSession } from '../lib/progress-service'
 import { QuizGame, type QuizSummary } from '../components/QuizGame'
 import { Icon } from '../components/ui/Icon'
@@ -14,6 +14,8 @@ export function ReviewPage() {
   const { due, studied } = useReviewQueue()
   const [playing, setPlaying] = useState(false)
   const [summary, setSummary] = useState<QuizSummary | null>(null)
+  // Frozen for the whole run: live SRS updates must not reshuffle mid-quiz.
+  const [questions, setQuestions] = useState<QuizQuestion[]>([])
 
   const { dueKanjis, studiedKanjis } = useMemo(() => {
     const resolve = (ids: number[]) =>
@@ -28,11 +30,11 @@ export function ReviewPage() {
     [dueKanjis, studiedKanjis],
   )
 
-  const questions = useMemo(
-    () =>
-      playing ? buildQuiz(sessionKanjis, kanjis, ['meaning', 'reading']) : [],
-    [playing, sessionKanjis, kanjis],
-  )
+  const startReview = useCallback(() => {
+    setSummary(null)
+    setQuestions(buildQuiz(sessionKanjis, kanjis, ['meaning', 'reading']))
+    setPlaying(true)
+  }, [sessionKanjis, kanjis])
 
   const handleFinish = useCallback(async (result: QuizSummary) => {
     await commitSession({
@@ -43,6 +45,7 @@ export function ReviewPage() {
     })
     setSummary(result)
     setPlaying(false)
+    setQuestions([])
   }, [])
 
   if (loading) return <p className="text-center text-[var(--muted)]">Cargando…</p>
@@ -52,7 +55,10 @@ export function ReviewPage() {
       <QuizGame
         questions={questions}
         onFinish={handleFinish}
-        onQuit={() => setPlaying(false)}
+        onQuit={() => {
+          setPlaying(false)
+          setQuestions([])
+        }}
         useHearts={false}
       />
     )
@@ -88,10 +94,7 @@ export function ReviewPage() {
         </p>
         <button
           type="button"
-          onClick={() => {
-            setSummary(null)
-            setPlaying(true)
-          }}
+          onClick={startReview}
           className="pressable mt-4 inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 font-extrabold text-indigo-700 shadow-lg"
         >
           <Icon name="play" className="h-5 w-5" />

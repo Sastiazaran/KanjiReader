@@ -1,5 +1,5 @@
-import { useCallback, useMemo, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useKanjiData } from '../hooks/useKanjiData'
 import { buildQuiz, type QuizQuestion } from '../lib/quiz'
 import { BADGES, starsFor } from '../lib/game'
@@ -15,6 +15,9 @@ import { Stars } from '../components/ui/Stars'
 
 type Phase = 'learn' | 'quiz' | 'result'
 
+/** Search param that restores the learn-phase kanji card after leaving the stage. */
+const CARD_INDEX_PARAM = 'k'
+
 interface StageOutcome {
   stars: number
   accuracy: number
@@ -27,11 +30,11 @@ interface StageOutcome {
 export function StagePage() {
   const { stageId = '' } = useParams()
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
   const { loading, getStage, getWorld, getKanjiById, kanjis, mediaMap, vocabByKanjiId } =
     useKanjiData()
 
   const [phase, setPhase] = useState<Phase>('learn')
-  const [cardIndex, setCardIndex] = useState(0)
   const [outcome, setOutcome] = useState<StageOutcome | null>(null)
   const [questions, setQuestions] = useState<QuizQuestion[]>([])
 
@@ -45,6 +48,36 @@ export function StagePage() {
         .filter((k): k is NonNullable<typeof k> => Boolean(k)),
     [stage, getKanjiById],
   )
+
+  const maxCardIndex = Math.max(0, stageKanjis.length - 1)
+  const parsedCard = Number(searchParams.get(CARD_INDEX_PARAM))
+  const cardIndex =
+    Number.isFinite(parsedCard) && parsedCard >= 0
+      ? Math.min(Math.floor(parsedCard), maxCardIndex)
+      : 0
+
+  const setCardIndex = useCallback(
+    (next: number | ((current: number) => number)) => {
+      const raw = typeof next === 'function' ? next(cardIndex) : next
+      const clamped = Math.max(0, Math.min(Math.floor(raw), maxCardIndex))
+      setSearchParams(
+        (prev) => {
+          const params = new URLSearchParams(prev)
+          if (clamped <= 0) params.delete(CARD_INDEX_PARAM)
+          else params.set(CARD_INDEX_PARAM, String(clamped))
+          return params
+        },
+        { replace: true },
+      )
+    },
+    [cardIndex, maxCardIndex, setSearchParams],
+  )
+
+  // Al cambiar de carta, volver arriba para no quedarse a mitad del kanji anterior.
+  useEffect(() => {
+    if (phase !== 'learn') return
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [cardIndex, phase])
 
   const startQuiz = useCallback(() => {
     setQuestions(buildQuiz(stageKanjis, kanjis))
@@ -88,7 +121,7 @@ export function StagePage() {
     setOutcome(null)
     setCardIndex(0)
     setPhase('learn')
-  }, [])
+  }, [setCardIndex])
 
   if (loading) return <p className="text-center text-[var(--muted)]">Cargando…</p>
   if (!stage || !world || stageKanjis.length === 0) {
@@ -164,7 +197,6 @@ export function StagePage() {
               type="button"
               onClick={() => {
                 setOutcome(null)
-                setCardIndex(0)
                 setPhase('learn')
                 navigate(`/etapa/${nextStage.id}`)
               }}
@@ -209,6 +241,11 @@ export function StagePage() {
         mediaMap={mediaMap}
         vocab={vocabByKanjiId.get(kanji.id) ?? []}
         showLink
+        returnTo={
+          cardIndex > 0
+            ? `/etapa/${stage.id}?${CARD_INDEX_PARAM}=${cardIndex}`
+            : `/etapa/${stage.id}`
+        }
       />
 
       <div className="flex gap-3">
