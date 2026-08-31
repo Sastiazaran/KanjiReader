@@ -9,7 +9,9 @@
  * que es justo lo que no se aprende en una lista de lecturas.
  */
 
-export const PHOTOS = [
+import { STREET_PHOTOS_EXTRA } from './photos-extra.mjs'
+
+const PHOTOS_CORE = [
   {
     id: 'salida-exit',
     file: '/photos/salida-exit.jpg',
@@ -198,3 +200,5 @@ export const PHOTOS = [
     },
   },
 ]
+
+export const PHOTOS = [...PHOTOS_CORE, ...STREET_PHOTOS_EXTRA]

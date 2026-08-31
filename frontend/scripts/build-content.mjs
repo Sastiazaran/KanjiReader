@@ -25,14 +25,16 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const FRONTEND_ROOT = path.join(__dirname, '..')
 const DATA_DIR = path.join(FRONTEND_ROOT, 'public/data')
 
-/** Índice kanji → id a partir de los datos ya exportados. */
-function loadKanjiIndex() {
+function loadKanjis() {
   const file = path.join(DATA_DIR, 'kanjis.json')
   if (!fs.existsSync(file)) {
     console.error(`Falta ${file}. Ejecuta primero "npm run export-data".`)
     process.exit(1)
   }
-  const kanjis = JSON.parse(fs.readFileSync(file, 'utf8'))
+  return JSON.parse(fs.readFileSync(file, 'utf8'))
+}
+
+function loadKanjiIndex(kanjis) {
   return new Map(kanjis.map((entry) => [entry.kanji, entry.id]))
 }
 
@@ -106,8 +108,12 @@ function buildStories(index) {
   })
 }
 
-function buildPhotos(index) {
-  return PHOTOS.map((photo) => {
+function buildPhotos(index, kanjis) {
+  const frequency = new Map(
+    kanjis.map((entry) => [entry.kanji, entry.frequency ?? 9999]),
+  )
+
+  const photos = PHOTOS.map((photo) => {
     const context = `la foto ${photo.id}`
     const literals = [...photo.text].filter((char) => index.has(char))
     if (!literals.includes(photo.focus)) {
@@ -131,15 +137,22 @@ function buildPhotos(index) {
       credit: photo.credit,
     }
   })
+
+  photos.sort(
+    (a, b) =>
+      (frequency.get(a.focus) ?? 9999) - (frequency.get(b.focus) ?? 9999),
+  )
+  return photos
 }
 
 function main() {
-  const index = loadKanjiIndex()
+  const kanjis = loadKanjis()
+  const index = loadKanjiIndex(kanjis)
 
   const files = {
     'sentences.json': buildSentences(index),
     'stories.json': buildStories(index),
-    'photos.json': buildPhotos(index),
+    'photos.json': buildPhotos(index, kanjis),
   }
 
   for (const [name, payload] of Object.entries(files)) {

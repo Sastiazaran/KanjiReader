@@ -81,8 +81,8 @@ export function StreetPage() {
       <header className="animate-pop rounded-[28px] bg-gradient-to-br from-teal-500 via-sky-500 to-indigo-600 p-6 shadow-2xl shadow-sky-900/40">
         <h1 className="text-2xl font-extrabold text-white">Kanji en la calle</h1>
         <p className="mt-1 text-sm text-white/90">
-          Fotos de verdad hechas en Japón. Adivina qué dice el cartel y descubre
-          qué lectura usa cada kanji cuando sale al mundo real.
+          {gallery.length} fotos de verdad hechas en Japón. Adivina qué dice el
+          cartel y descubre qué lectura usa cada kanji cuando sale al mundo real.
         </p>
         <button
           type="button"
