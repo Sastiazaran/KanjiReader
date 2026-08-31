@@ -44,10 +44,10 @@ export function StrokeOrder({ literal, strokeCount, mediaMap }: StrokeOrderProps
       </div>
 
       {videoUrl && !videoBroken && (
-        <div className="mx-auto flex w-fit flex-col items-center gap-3">
+        <div className="mx-auto flex w-full max-w-52 flex-col items-center gap-3">
           <video
             ref={videoRef}
-            className="h-52 w-52 rounded-3xl border border-white/15 bg-white"
+            className="aspect-square w-full rounded-3xl border border-white/15 bg-white object-contain"
             src={videoUrl}
             playsInline
             muted
@@ -71,12 +71,14 @@ export function StrokeOrder({ literal, strokeCount, mediaMap }: StrokeOrderProps
         <div className="flex flex-wrap justify-center gap-2 pt-3">
           {svgUrls.map((src, index) => (
             <div key={src} className="relative">
-              <img
-                src={src}
-                alt={`Trazo ${index + 1} de ${literal}`}
-                className="h-14 w-14 rounded-xl border border-white/15 bg-white object-contain"
-                loading="lazy"
-              />
+              <div className="h-14 w-14 overflow-hidden rounded-xl border border-white/15 bg-white">
+                <img
+                  src={src}
+                  alt={`Trazo ${index + 1} de ${literal}`}
+                  className="h-full w-full object-contain"
+                  loading="lazy"
+                />
+              </div>
               <span className="absolute -left-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-violet-500 text-[10px] font-extrabold text-white">
                 {index + 1}
               </span>

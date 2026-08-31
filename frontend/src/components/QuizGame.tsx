@@ -173,7 +173,7 @@ export function QuizGame({
           <img
             src={question.imageSrc}
             alt="Cartel fotografiado en Japón"
-            className="mx-auto mb-4 max-h-64 w-full rounded-2xl object-cover"
+            className="mx-auto mb-4 block h-auto max-h-80 w-auto max-w-full rounded-2xl object-contain"
           />
         )}
 
