@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Un tren llegando a la ciudad">
+  <defs>
+    <linearGradient id="urbe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b3f7a" />
+      <stop offset="100%" stop-color="#8f7bc4" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#urbe)" />
+  <circle cx="150" cy="96" r="46" fill="#ffe6a3" opacity="0.9" />
+
+  <g fill="#1e2a52">
+    <rect x="40" y="180" width="90" height="180" />
+    <rect x="150" y="140" width="70" height="220" />
+    <rect x="240" y="200" width="80" height="160" />
+    <rect x="560" y="150" width="76" height="210" />
+    <rect x="660" y="196" width="96" height="164" />
+  </g>
+  <g fill="#ffd978" opacity="0.85">
+    <rect x="56" y="200" width="16" height="16" />
+    <rect x="90" y="236" width="16" height="16" />
+    <rect x="166" y="168" width="16" height="16" />
+    <rect x="196" y="216" width="16" height="16" />
+    <rect x="262" y="230" width="16" height="16" />
+    <rect x="578" y="180" width="16" height="16" />
+    <rect x="606" y="240" width="16" height="16" />
+    <rect x="686" y="222" width="16" height="16" />
+    <rect x="720" y="268" width="16" height="16" />
+  </g>
+
+  <rect y="358" width="800" height="92" fill="#141a34" />
+  <rect y="352" width="800" height="10" fill="#3d4a7a" />
+
+  <g>
+    <rect x="330" y="250" width="330" height="104" rx="26" fill="#e9edf7" />
+    <rect x="330" y="250" width="330" height="26" rx="13" fill="#3f8ad8" />
+    <g fill="#2b3f7a">
+      <rect x="356" y="288" width="52" height="40" rx="8" />
+      <rect x="426" y="288" width="52" height="40" rx="8" />
+      <rect x="496" y="288" width="52" height="40" rx="8" />
+      <rect x="566" y="288" width="52" height="40" rx="8" />
+    </g>
+    <circle cx="386" cy="360" r="16" fill="#20264a" />
+    <circle cx="604" cy="360" r="16" fill="#20264a" />
+    <circle cx="660" cy="300" r="12" fill="#fff3bf" />
+  </g>
+
+  <g fill="#0e1226">
+    <rect x="152" y="316" width="12" height="42" rx="5" />
+    <circle cx="158" cy="304" r="15" />
+  </g>
+</svg>

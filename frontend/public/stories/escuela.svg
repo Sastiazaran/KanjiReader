@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="La entrada de una escuela">
+  <defs>
+    <linearGradient id="manana" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7fc9f0" />
+      <stop offset="100%" stop-color="#e7f6ff" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#manana)" />
+  <circle cx="680" cy="80" r="40" fill="#fff3bf" />
+
+  <rect y="330" width="800" height="120" fill="#c9d3dc" />
+  <rect y="318" width="800" height="16" fill="#9fb0bd" />
+
+  <rect x="180" y="150" width="440" height="180" fill="#f4f0e6" />
+  <rect x="180" y="132" width="440" height="24" fill="#c05a45" />
+  <rect x="366" y="238" width="68" height="92" fill="#7a5a3a" />
+  <g fill="#8fd0ef">
+    <rect x="212" y="176" width="60" height="44" />
+    <rect x="292" y="176" width="60" height="44" />
+    <rect x="448" y="176" width="60" height="44" />
+    <rect x="528" y="176" width="60" height="44" />
+    <rect x="212" y="248" width="60" height="44" />
+    <rect x="528" y="248" width="60" height="44" />
+  </g>
+  <rect x="386" y="96" width="10" height="42" fill="#8b95a0" />
+  <path d="M396 100 L452 112 L396 124 Z" fill="#e2574a" />
+
+  <g fill="#5f6b76">
+    <rect x="96" y="230" width="14" height="100" rx="6" />
+    <rect x="690" y="230" width="14" height="100" rx="6" />
+  </g>
+
+  <g fill="#2f3b46">
+    <rect x="286" y="292" width="12" height="38" rx="5" />
+    <circle cx="292" cy="280" r="14" />
+    <rect x="508" y="292" width="12" height="38" rx="5" />
+    <circle cx="514" cy="280" r="14" />
+  </g>
+</svg>

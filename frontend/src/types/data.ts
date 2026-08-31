@@ -56,11 +56,18 @@ export interface JapaneseToken {
   isTarget?: boolean
 }
 
+/** Palabra concreta donde aparece el kanji, base de la explicación on/kun. */
+export interface SentenceFocus {
+  word: string
+  reading: string
+}
+
 /** Frase de ejemplo escrita para este proyecto, con el kanji en contexto. */
 export interface SentenceRecord {
   id: string
   kanjiId: number
   tokens: JapaneseToken[]
+  focus: SentenceFocus
   /** Traducción al español. */
   es: string
   /** Dificultad orientativa (1 = frase mínima, 4 = frase larga). */

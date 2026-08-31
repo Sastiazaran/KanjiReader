@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Un pueblo junto al río">
+  <defs>
+    <linearGradient id="dia" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5ec2ee" />
+      <stop offset="100%" stop-color="#bfe9f7" />
+    </linearGradient>
+    <linearGradient id="agua" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2f8fd0" />
+      <stop offset="100%" stop-color="#1c5f96" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#dia)" />
+  <circle cx="120" cy="90" r="44" fill="#fff4c8" />
+
+  <g fill="#ffffff" opacity="0.85">
+    <ellipse cx="330" cy="90" rx="60" ry="26" />
+    <ellipse cx="380" cy="76" rx="44" ry="22" />
+    <ellipse cx="620" cy="120" rx="52" ry="22" />
+  </g>
+
+  <path d="M0 240 L180 150 L360 240 Z" fill="#6f7fbf" />
+  <path d="M420 240 L620 140 L800 240 Z" fill="#5c6cae" />
+
+  <rect y="236" width="800" height="214" fill="#8fd08a" />
+
+  <g>
+    <rect x="120" y="260" width="130" height="86" fill="#f6efe0" />
+    <path d="M108 262 L185 218 L262 262 Z" fill="#b7523f" />
+    <rect x="160" y="296" width="42" height="50" fill="#7a4a34" />
+  </g>
+  <g>
+    <rect x="540" y="272" width="112" height="74" fill="#f6efe0" />
+    <path d="M528 274 L596 234 L664 274 Z" fill="#3f5f8f" />
+    <rect x="576" y="304" width="38" height="42" fill="#7a4a34" />
+  </g>
+
+  <path d="M0 400 C180 350 320 430 480 386 C620 348 700 400 800 372 L800 450 L0 450 Z" fill="url(#agua)" />
+  <g stroke="#bfe9f7" stroke-width="5" opacity="0.6" fill="none">
+    <path d="M60 424 q40 -14 80 0" />
+    <path d="M300 434 q40 -14 80 0" />
+    <path d="M560 420 q40 -14 80 0" />
+  </g>
+</svg>
