@@ -80,6 +80,34 @@ export function MapPage() {
         </div>
       </section>
 
+      <section className="grid gap-3 sm:grid-cols-2">
+        <Link
+          to="/cuentos"
+          className="pressable rounded-3xl border border-amber-300/25 bg-gradient-to-br from-amber-400/20 to-rose-500/15 p-5"
+        >
+          <div className="flex items-center gap-2 text-amber-200">
+            <Icon name="book" className="h-5 w-5" />
+            <h2 className="font-extrabold text-white">Cuentos</h2>
+          </div>
+          <p className="mt-1 text-sm text-[var(--muted)]">
+            Lee historias cortas hechas solo con los kanji que ya conoces.
+          </p>
+        </Link>
+
+        <Link
+          to="/calle"
+          className="pressable rounded-3xl border border-teal-300/25 bg-gradient-to-br from-teal-400/20 to-sky-500/15 p-5"
+        >
+          <div className="flex items-center gap-2 text-teal-200">
+            <Icon name="sparkle" className="h-5 w-5" />
+            <h2 className="font-extrabold text-white">Kanji en la calle</h2>
+          </div>
+          <p className="mt-1 text-sm text-[var(--muted)]">
+            Fotos reales de Japón: carteles, estaciones y precios.
+          </p>
+        </Link>
+      </section>
+
       <div className="space-y-4">
         {worldViews.map(({ world, cleared, stars, ratio, unlocked }) => {
           const card = (
