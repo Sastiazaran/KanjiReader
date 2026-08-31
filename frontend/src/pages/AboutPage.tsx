@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useKanjiData } from '../hooks/useKanjiData'
+import { uniquePhotosByFile } from '../lib/photos'
 import { Icon } from '../components/ui/Icon'
 
 const DONATE_URL =
@@ -41,6 +42,7 @@ const SOURCES = [
 
 export function AboutPage() {
   const { photos } = useKanjiData()
+  const gallery = uniquePhotosByFile(photos)
 
   return (
     <div className="space-y-5">
@@ -91,13 +93,13 @@ export function AboutPage() {
         </p>
       </section>
 
-      {photos.length > 0 && (
+      {gallery.length > 0 && (
         <section className="rounded-3xl border border-white/12 bg-white/5 p-5">
           <h2 className="mb-3 text-sm font-extrabold uppercase tracking-wide text-[var(--muted)]">
             Fotos de «Kanji en la calle»
           </h2>
           <ul className="space-y-2 text-[13px]">
-            {photos.map((photo) => (
+            {gallery.map((photo) => (
               <li
                 key={photo.id}
                 className="flex flex-wrap items-baseline gap-x-2 border-b border-white/8 pb-2 last:border-0"

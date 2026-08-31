@@ -27,7 +27,7 @@ function stripHtml(value) {
     .trim()
 }
 
-async function fetchImageInfo(title) {
+async function fetchImageInfo(title, attempt = 0) {
   const url = new URL(API)
   url.search = new URLSearchParams({
     action: 'query',
@@ -39,6 +39,11 @@ async function fetchImageInfo(title) {
   }).toString()
 
   const response = await fetch(url, { headers: { 'User-Agent': USER_AGENT } })
+  if (response.status === 429) {
+    if (attempt > 6) throw new Error(`Commons limitó ${title} (429)`)
+    await new Promise((resolve) => setTimeout(resolve, 5000 * 2 ** attempt))
+    return fetchImageInfo(title, attempt + 1)
+  }
   if (!response.ok) throw new Error(`Commons respondió ${response.status} para ${title}`)
 
   const data = await response.json()
@@ -54,8 +59,15 @@ async function fetchImageInfo(title) {
   }
 }
 
-async function download(url, dest) {
+async function download(url, dest, attempt = 0) {
   const response = await fetch(url, { headers: { 'User-Agent': USER_AGENT } })
+  if (response.status === 429 || response.status >= 500) {
+    if (attempt > 6) throw new Error(`No se pudo bajar ${url} (${response.status})`)
+    const wait = 3000 * 2 ** attempt
+    console.log(`  espera ${wait} ms…`)
+    await new Promise((resolve) => setTimeout(resolve, wait))
+    return download(url, dest, attempt + 1)
+  }
   if (!response.ok) throw new Error(`No se pudo bajar ${url} (${response.status})`)
   fs.writeFileSync(dest, Buffer.from(await response.arrayBuffer()))
 }
@@ -79,9 +91,14 @@ async function main() {
       )
     }
 
-    await download(info.downloadUrl, dest)
-    const kb = Math.round(fs.statSync(dest).size / 1024)
-    console.log(`${file}  ${kb} KB  ${info.license}  ${info.author}`)
+    if (fs.existsSync(dest) && fs.statSync(dest).size > 4000) {
+      console.log(`${file}  (ya estaba)  ${info.license}`)
+    } else {
+      await download(info.downloadUrl, dest)
+      const kb = Math.round(fs.statSync(dest).size / 1024)
+      console.log(`${file}  ${kb} KB  ${info.license}  ${info.author}`)
+    }
+    await new Promise((resolve) => setTimeout(resolve, 800))
   }
 
   if (warnings.length) {
