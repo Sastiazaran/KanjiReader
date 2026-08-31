@@ -15,9 +15,9 @@ import {
   type BadgeStats,
 } from './game'
 
-/** Días hasta la siguiente revisión por nivel Leitner (0 = recién visto). */
-export const SRS_INTERVAL_DAYS = [0, 1, 3, 7, 14, 30] as const
-export const MASTERED_LEVEL = SRS_INTERVAL_DAYS.length - 1
+import { daysUntilNextReview, MASTERED_LEVEL, nextSrsLevel } from './srs'
+
+export { SRS_INTERVAL_DAYS, MASTERED_LEVEL } from './srs'
 
 function addDays(date: Date, days: number): Date {
   const next = new Date(date)
@@ -49,10 +49,8 @@ export async function getOrCreateProgress(kanjiId: number): Promise<ProgressRow>
 export async function recordAnswer(kanjiId: number, correct: boolean) {
   const row = await getOrCreateProgress(kanjiId)
   const now = new Date()
-  const nextLevel = correct
-    ? Math.min(row.srsLevel + 1, MASTERED_LEVEL)
-    : Math.max(0, row.srsLevel - 1)
-  const days = correct ? Math.max(1, SRS_INTERVAL_DAYS[nextLevel]) : 1
+  const nextLevel = nextSrsLevel(row.srsLevel, correct)
+  const days = daysUntilNextReview(nextLevel, correct)
 
   await db.progress.update(row.id!, {
     srsLevel: nextLevel,
