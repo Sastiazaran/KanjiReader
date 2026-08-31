@@ -12,22 +12,27 @@ interface PhotoCardProps {
 /**
  * Foto real de Japón con el texto que se puede leer, su lectura y por qué suena
  * así. La autoría va siempre pegada a la imagen, como pide la licencia.
+ *
+ * Las fotos no son 4:3: hay retratos, panorámicas y apaisadas. Se muestra el
+ * archivo entero (`object-contain`) y el marco sigue su proporción.
  */
 export function PhotoCard({ photo, quiz, revealed = true, onReveal }: PhotoCardProps) {
   const showAnswer = !quiz || revealed
 
   return (
     <figure className="overflow-hidden rounded-3xl border border-white/12 bg-black/25">
-      <img
-        src={photo.file}
-        alt={
-          showAnswer
-            ? `${photo.where}: cartel con el texto ${photo.text}`
-            : 'Foto de un cartel en Japón'
-        }
-        loading="lazy"
-        className="aspect-[4/3] w-full object-cover"
-      />
+      <div className="bg-black">
+        <img
+          src={photo.file}
+          alt={
+            showAnswer
+              ? `${photo.where}: cartel con el texto ${photo.text}`
+              : 'Foto de un cartel en Japón'
+          }
+          loading="lazy"
+          className="mx-auto block h-auto max-h-[min(70svh,40rem)] w-auto max-w-full object-contain"
+        />
+      </div>
 
       <figcaption className="space-y-2 p-4">
         {showAnswer ? (

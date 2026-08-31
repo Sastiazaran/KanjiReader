@@ -119,7 +119,7 @@ export function StoryReaderPage() {
         <img
           src={page.illustration}
           alt=""
-          className="w-full bg-black/20"
+          className="mx-auto block h-auto w-full bg-black/20 object-contain"
         />
 
         <div className="space-y-4 p-5">
