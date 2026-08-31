@@ -34,23 +34,44 @@ export function useDueCount() {
   }, [], 0)
 }
 
-/** Kanji vencidos y kanji ya estudiados, calculados fuera del render. */
+export interface ReviewQueueRow {
+  kanjiId: number
+  srsLevel: number
+  /** Fecha del próximo repaso en ISO, lista para mostrar. */
+  nextReview: string
+}
+
+const EMPTY_QUEUE = {
+  due: [] as ReviewQueueRow[],
+  studied: [] as ReviewQueueRow[],
+}
+
+/**
+ * Cola de repaso: primero lo que peor se recuerda (nivel bajo) y, a igual
+ * nivel, lo que lleva más tiempo esperando.
+ */
 export function useReviewQueue() {
   return useLiveQuery(
     async () => {
       const now = Date.now()
       const rows = await db.progress.where('userId').equals(LOCAL_USER_ID).toArray()
-      const sorted = [...rows].sort(
-        (a, b) => new Date(a.nextReview).getTime() - new Date(b.nextReview).getTime(),
-      )
+      const sorted = [...rows]
+        .sort((a, b) => {
+          if (a.srsLevel !== b.srsLevel) return a.srsLevel - b.srsLevel
+          return new Date(a.nextReview).getTime() - new Date(b.nextReview).getTime()
+        })
+        .map((row) => ({
+          kanjiId: row.kanjiId,
+          srsLevel: row.srsLevel,
+          nextReview: new Date(row.nextReview).toISOString(),
+        }))
+
       return {
-        due: sorted
-          .filter((r) => new Date(r.nextReview).getTime() <= now)
-          .map((r) => r.kanjiId),
-        studied: sorted.map((r) => r.kanjiId),
+        due: sorted.filter((row) => new Date(row.nextReview).getTime() <= now),
+        studied: sorted,
       }
     },
     [],
-    { due: [] as number[], studied: [] as number[] },
+    EMPTY_QUEUE,
   )
 }

@@ -15,7 +15,7 @@ import {
   type BadgeStats,
 } from './game'
 
-import { daysUntilNextReview, MASTERED_LEVEL, nextSrsLevel } from './srs'
+import { daysUntilNextReview, nextSrsLevel } from './srs'
 
 export { SRS_INTERVAL_DAYS, MASTERED_LEVEL } from './srs'
 
