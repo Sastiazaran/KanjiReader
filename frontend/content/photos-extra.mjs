@@ -1205,19 +1205,67 @@ export const STREET_PHOTOS_EXTRA = [
     },
   },
   {
-    id: "national-road",
+    id: "prefecture-gunma",
     file: "/photos/national-road.jpg",
     commonsTitle: "File:国道50号 群馬県境 標識 20180318 112443.jpg",
-    focus: "国",
-    text: "国道",
-    textReading: "こくどう",
+    focus: "県",
+    text: "群馬県",
+    textReading: "ぐんまけん",
     where: "Límite prefectural en la ruta nacional 50",
-    caption: "国道 se lee こくどう: «carretera nacional». 国 suena こく (on), el kanji n.º 3 más usado del idioma.",
+    caption: "El cartel grande dice 群馬県. 県 suena けん (on): en cada frontera de prefectura aparece este kanji.",
     credit: {
       author: "Puchi-masashi This photo was taken with Canon PowerShot G9 X Mark II",
       license: "CC BY-SA 4.0",
       licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
       sourceUrl: "https://commons.wikimedia.org/wiki/File%3A%E5%9B%BD%E9%81%9350%E5%8F%B7_%E7%BE%A4%E9%A6%AC%E7%9C%8C%E5%A2%83_%E6%A8%99%E8%AD%98_20180318_112443.jpg"
+    },
+  },
+  {
+    id: "ota-city",
+    file: "/photos/national-road.jpg",
+    commonsTitle: "File:国道50号 群馬県境 標識 20180318 112443.jpg",
+    focus: "市",
+    text: "太田市",
+    textReading: "おおたし",
+    where: "Límite prefectural en la ruta nacional 50",
+    caption: "Debajo dice 太田市. 市 suena し (on), el mismo on de 都市: en Japón casi todas las ciudades se escriben con 市.",
+    credit: {
+      author: "Puchi-masashi This photo was taken with Canon PowerShot G9 X Mark II",
+      license: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File%3A%E5%9B%BD%E9%81%9350%E5%8F%B7_%E7%BE%A4%E9%A6%AC%E7%9C%8C%E5%A2%83_%E6%A8%99%E8%AD%98_20180318_112443.jpg"
+    },
+  },
+  {
+    id: "national-route-229",
+    file: "/photos/national-route.jpg",
+    commonsTitle: "File:国道229号と国道277号の重複を示す標識（2019年3月撮影）.jpg",
+    focus: "国",
+    text: "国道",
+    textReading: "こくどう",
+    where: "Ruta nacional 229 y 277, Hokkaidō",
+    caption: "En el escudo azul se lee 国道. 国 suena こく (on), el kanji n.º 3 más usado: «carretera nacional».",
+    credit: {
+      author: "BATACHAN",
+      license: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:%E5%9B%BD%E9%81%93229%E5%8F%B7%E3%81%A8%E5%9B%BD%E9%81%93277%E5%8F%B7%E3%81%AE%E9%87%8D%E8%A4%87%E3%82%92%E7%A4%BA%E3%81%99%E6%A8%99%E8%AD%98%EF%BC%882019%E5%B9%B43%E6%9C%88%E6%92%AE%E5%BD%B1%EF%BC%89.jpg"
+    },
+  },
+  {
+    id: "national-route-229-michi",
+    file: "/photos/national-route.jpg",
+    commonsTitle: "File:国道229号と国道277号の重複を示す標識（2019年3月撮影）.jpg",
+    focus: "道",
+    text: "国道",
+    textReading: "こくどう",
+    where: "Ruta nacional 229 y 277, Hokkaidō",
+    caption: "道 suena どう (on) en 国道. Es el mismo on que en 道路: en las carreteras casi siempre va en on.",
+    credit: {
+      author: "BATACHAN",
+      license: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:%E5%9B%BD%E9%81%93229%E5%8F%B7%E3%81%A8%E5%9B%BD%E9%81%93277%E5%8F%B7%E3%81%AE%E9%87%8D%E8%A4%87%E3%82%92%E7%A4%BA%E3%81%99%E6%A8%99%E8%AD%98%EF%BC%882019%E5%B9%B43%E6%9C%88%E6%92%AE%E5%BD%B1%EF%BC%89.jpg"
     },
   },
   {
@@ -1618,22 +1666,6 @@ export const STREET_PHOTOS_EXTRA = [
       license: "CC BY-SA 4.0",
       licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0",
       sourceUrl: "https://commons.wikimedia.org/wiki/File%3ARoad_sign_prohibit_vacant_taxi.JPG"
-    },
-  },
-  {
-    id: "dogo-onsen-mark",
-    file: "/photos/dogo-onsen-street.jpg",
-    commonsTitle: "File:上山田温泉の看板温泉マークから温泉街を見る - panoramio.jpg",
-    focus: "泉",
-    text: "温泉",
-    textReading: "おんせん",
-    where: "Calle de un barrio de onsen",
-    caption: "El letrero con 温泉 y el pictograma de vapor. 泉 otra vez せん: cuando ves este kanji en la montaña, hay un baño.",
-    credit: {
-      author: "mapplefan8",
-      license: "CC BY-SA 3.0",
-      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0",
-      sourceUrl: "https://commons.wikimedia.org/wiki/File%3A%E4%B8%8A%E5%B1%B1%E7%94%B0%E6%B8%A9%E6%B3%89%E3%81%AE%E7%9C%8B%E6%9D%BF%E6%B8%A9%E6%B3%89%E3%83%9E%E3%83%BC%E3%82%AF%E3%81%8B%E3%82%89%E6%B8%A9%E6%B3%89%E8%A1%97%E3%82%92%E8%A6%8B%E3%82%8B_-_panoramio.jpg"
     },
   },
 ]
