@@ -6,6 +6,7 @@ import { StoryCard } from '../components/StoryCard'
 import { PhotoCard } from '../components/PhotoCard'
 import { ProgressBar } from '../components/ui/ProgressBar'
 import { Icon } from '../components/ui/Icon'
+import { uniquePhotosByFile } from '../lib/photos'
 
 interface DetailLocationState {
   from?: string
@@ -37,7 +38,9 @@ export function KanjiDetailPage() {
   const progress = progressRows.find((row) => row.kanjiId === id)
   const vocab = kanji ? (vocabByKanjiId.get(kanji.id) ?? []) : []
   const sentences = kanji ? (sentencesByKanjiId.get(kanji.id) ?? []) : []
-  const photos = kanji ? (photosByKanjiId.get(kanji.id) ?? []) : []
+  const photos = uniquePhotosByFile(
+    kanji ? (photosByKanjiId.get(kanji.id) ?? []) : [],
+  )
   const returnTo = safeReturnPath(
     (location.state as DetailLocationState | null)?.from,
   )

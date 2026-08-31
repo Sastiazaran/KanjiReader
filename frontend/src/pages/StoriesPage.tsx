@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useKanjiData } from '../hooks/useKanjiData'
 import { useStageResults } from '../hooks/useGameState'
 import { THEME_GRADIENTS } from '../lib/game'
+import { isStoryUnlocked, stagesClearedInWorld } from '../lib/stories'
 import { Icon } from '../components/ui/Icon'
 
 /**
@@ -16,10 +17,7 @@ export function StoriesPage() {
   const clearedByWorld = useMemo(() => {
     const map = new Map<string, number>()
     for (const world of worlds) {
-      const cleared = world.stages.filter(
-        (stage) => (stageResults.get(stage.id)?.stars ?? 0) > 0,
-      ).length
-      map.set(world.id, cleared)
+      map.set(world.id, stagesClearedInWorld(world, stageResults))
     }
     return map
   }, [worlds, stageResults])
@@ -46,7 +44,7 @@ export function StoriesPage() {
         {stories.map((story) => {
           const world = worldById.get(story.worldId)
           const cleared = clearedByWorld.get(story.worldId) ?? 0
-          const unlocked = cleared >= story.minStagesCleared
+          const unlocked = isStoryUnlocked(story, cleared)
           const theme = world?.theme ?? 'sakura'
 
           const card = (

@@ -1,44 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Un pueblo junto al río">
   <defs>
-    <linearGradient id="dia" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#5ec2ee" />
-      <stop offset="100%" stop-color="#bfe9f7" />
+    <linearGradient id="pueblo-cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4eb8f4" />
+      <stop offset="100%" stop-color="#d7f4ff" />
     </linearGradient>
-    <linearGradient id="agua" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#2f8fd0" />
-      <stop offset="100%" stop-color="#1c5f96" />
+    <linearGradient id="pueblo-agua" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3aa0e8" />
+      <stop offset="100%" stop-color="#1b6fb8" />
     </linearGradient>
   </defs>
-
-  <rect width="800" height="450" fill="url(#dia)" />
-  <circle cx="120" cy="90" r="44" fill="#fff4c8" />
-
-  <g fill="#ffffff" opacity="0.85">
-    <ellipse cx="330" cy="90" rx="60" ry="26" />
-    <ellipse cx="380" cy="76" rx="44" ry="22" />
-    <ellipse cx="620" cy="120" rx="52" ry="22" />
+  <rect width="800" height="450" fill="url(#pueblo-cielo)" />
+  <circle cx="110" cy="78" r="48" fill="#ffe56a" />
+  <g fill="#ffffff">
+    <ellipse cx="320" cy="78" rx="70" ry="28" />
+    <ellipse cx="375" cy="64" rx="48" ry="24" />
+    <ellipse cx="630" cy="110" rx="58" ry="24" />
   </g>
-
-  <path d="M0 240 L180 150 L360 240 Z" fill="#6f7fbf" />
-  <path d="M420 240 L620 140 L800 240 Z" fill="#5c6cae" />
-
-  <rect y="236" width="800" height="214" fill="#8fd08a" />
-
+  <path d="M0 230 L190 125 L360 230 Z" fill="#7f91d8" />
+  <path d="M430 230 L640 115 L800 230 Z" fill="#6b80cc" />
+  <rect y="226" width="800" height="224" fill="#7ed37a" />
   <g>
-    <rect x="120" y="260" width="130" height="86" fill="#f6efe0" />
-    <path d="M108 262 L185 218 L262 262 Z" fill="#b7523f" />
-    <rect x="160" y="296" width="42" height="50" fill="#7a4a34" />
+    <rect x="118" y="248" width="140" height="92" fill="#fff6e4" />
+    <path d="M104 250 L188 198 L272 250 Z" fill="#e25b45" />
+    <rect x="164" y="286" width="46" height="54" fill="#8a4f32" />
   </g>
   <g>
-    <rect x="540" y="272" width="112" height="74" fill="#f6efe0" />
-    <path d="M528 274 L596 234 L664 274 Z" fill="#3f5f8f" />
-    <rect x="576" y="304" width="38" height="42" fill="#7a4a34" />
+    <rect x="536" y="260" width="122" height="80" fill="#fff6e4" />
+    <path d="M522 262 L597 214 L672 262 Z" fill="#3f6fbc" />
+    <rect x="574" y="294" width="42" height="46" fill="#8a4f32" />
   </g>
-
-  <path d="M0 400 C180 350 320 430 480 386 C620 348 700 400 800 372 L800 450 L0 450 Z" fill="url(#agua)" />
-  <g stroke="#bfe9f7" stroke-width="5" opacity="0.6" fill="none">
-    <path d="M60 424 q40 -14 80 0" />
-    <path d="M300 434 q40 -14 80 0" />
-    <path d="M560 420 q40 -14 80 0" />
+  <path d="M0 392 C180 338 320 428 490 378 C630 336 710 400 800 368 L800 450 L0 450 Z" fill="url(#pueblo-agua)" />
+  <g stroke="#e7f7ff" stroke-width="6" fill="none" opacity="0.8">
+    <path d="M70 416 q50 -16 100 0" />
+    <path d="M310 428 q50 -16 100 0" />
+    <path d="M560 410 q50 -16 100 0" />
   </g>
 </svg>

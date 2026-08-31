@@ -1,52 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Un tren llegando a la ciudad">
   <defs>
-    <linearGradient id="urbe" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#2b3f7a" />
-      <stop offset="100%" stop-color="#8f7bc4" />
+    <linearGradient id="ciudad-cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2f4aa0" />
+      <stop offset="100%" stop-color="#c9a6ee" />
     </linearGradient>
   </defs>
-
-  <rect width="800" height="450" fill="url(#urbe)" />
-  <circle cx="150" cy="96" r="46" fill="#ffe6a3" opacity="0.9" />
-
-  <g fill="#1e2a52">
-    <rect x="40" y="180" width="90" height="180" />
-    <rect x="150" y="140" width="70" height="220" />
-    <rect x="240" y="200" width="80" height="160" />
-    <rect x="560" y="150" width="76" height="210" />
-    <rect x="660" y="196" width="96" height="164" />
+  <rect width="800" height="450" fill="url(#ciudad-cielo)" />
+  <circle cx="140" cy="78" r="50" fill="#ffe56a" />
+  <g fill="#1c2d6a">
+    <rect x="30" y="168" width="100" height="196" />
+    <rect x="150" y="120" width="80" height="244" />
+    <rect x="250" y="188" width="86" height="176" />
+    <rect x="560" y="138" width="82" height="226" />
+    <rect x="662" y="184" width="108" height="180" />
   </g>
-  <g fill="#ffd978" opacity="0.85">
-    <rect x="56" y="200" width="16" height="16" />
-    <rect x="90" y="236" width="16" height="16" />
-    <rect x="166" y="168" width="16" height="16" />
-    <rect x="196" y="216" width="16" height="16" />
-    <rect x="262" y="230" width="16" height="16" />
-    <rect x="578" y="180" width="16" height="16" />
-    <rect x="606" y="240" width="16" height="16" />
-    <rect x="686" y="222" width="16" height="16" />
-    <rect x="720" y="268" width="16" height="16" />
+  <g fill="#ffe56a">
+    <rect x="48" y="190" width="18" height="18" />
+    <rect x="86" y="230" width="18" height="18" />
+    <rect x="168" y="150" width="18" height="18" />
+    <rect x="198" y="210" width="18" height="18" />
+    <rect x="268" y="220" width="18" height="18" />
+    <rect x="578" y="168" width="18" height="18" />
+    <rect x="610" y="228" width="18" height="18" />
+    <rect x="688" y="214" width="18" height="18" />
+    <rect x="726" y="260" width="18" height="18" />
   </g>
-
-  <rect y="358" width="800" height="92" fill="#141a34" />
-  <rect y="352" width="800" height="10" fill="#3d4a7a" />
-
+  <rect y="360" width="800" height="90" fill="#141a3a" />
+  <rect y="350" width="800" height="14" fill="#5a6bb8" />
   <g>
-    <rect x="330" y="250" width="330" height="104" rx="26" fill="#e9edf7" />
-    <rect x="330" y="250" width="330" height="26" rx="13" fill="#3f8ad8" />
-    <g fill="#2b3f7a">
-      <rect x="356" y="288" width="52" height="40" rx="8" />
-      <rect x="426" y="288" width="52" height="40" rx="8" />
-      <rect x="496" y="288" width="52" height="40" rx="8" />
-      <rect x="566" y="288" width="52" height="40" rx="8" />
+    <rect x="318" y="236" width="350" height="116" rx="28" fill="#f4f7ff" />
+    <rect x="318" y="236" width="350" height="30" rx="15" fill="#3f8ef0" />
+    <g fill="#2a3f86">
+      <rect x="348" y="280" width="56" height="44" rx="8" />
+      <rect x="422" y="280" width="56" height="44" rx="8" />
+      <rect x="496" y="280" width="56" height="44" rx="8" />
+      <rect x="570" y="280" width="56" height="44" rx="8" />
     </g>
-    <circle cx="386" cy="360" r="16" fill="#20264a" />
-    <circle cx="604" cy="360" r="16" fill="#20264a" />
-    <circle cx="660" cy="300" r="12" fill="#fff3bf" />
-  </g>
-
-  <g fill="#0e1226">
-    <rect x="152" y="316" width="12" height="42" rx="5" />
-    <circle cx="158" cy="304" r="15" />
+    <circle cx="378" cy="360" r="18" fill="#1a2148" />
+    <circle cx="608" cy="360" r="18" fill="#1a2148" />
+    <circle cx="668" cy="292" r="14" fill="#ffe56a" />
   </g>
 </svg>

@@ -1,8 +1,10 @@
 import { useCallback, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useKanjiData } from '../hooks/useKanjiData'
+import { useStageResults } from '../hooks/useGameState'
 import { analyzeReading } from '../lib/reading-type'
 import { isKanjiChar } from '../lib/kana'
+import { isStoryUnlocked, stagesClearedInWorld } from '../lib/stories'
 import { Furigana } from '../components/Furigana'
 import { Icon } from '../components/ui/Icon'
 import type { JapaneseToken, KanjiRecord } from '../types/data'
@@ -19,7 +21,8 @@ interface TokenExplanation {
  */
 export function StoryReaderPage() {
   const { storyId = '' } = useParams()
-  const { loading, getStory, getKanjiById, kanjis } = useKanjiData()
+  const { loading, getStory, getKanjiById, getWorld, kanjis } = useKanjiData()
+  const stageResults = useStageResults()
   const [pageIndex, setPageIndex] = useState(0)
   const [hideReadings, setHideReadings] = useState(false)
   const [selected, setSelected] = useState<JapaneseToken | null>(null)
@@ -67,6 +70,28 @@ export function StoryReaderPage() {
           Ver los cuentos
         </Link>
       </p>
+    )
+  }
+
+  const world = getWorld(story.worldId)
+  const cleared = stagesClearedInWorld(world, stageResults)
+  if (!isStoryUnlocked(story, cleared)) {
+    return (
+      <div className="animate-pop space-y-4 rounded-[28px] border border-white/12 bg-white/5 p-6 text-center">
+        <Icon name="lock" className="mx-auto h-10 w-10 text-amber-300" />
+        <h1 className="text-xl font-extrabold text-white">{story.titleEs}</h1>
+        <p className="text-sm text-[var(--muted)]">
+          Este cuento usa los kanji de {world?.name ?? 'este mundo'}. Supera{' '}
+          {story.minStagesCleared} etapas para leerlo ({cleared}/
+          {story.minStagesCleared}).
+        </p>
+        <Link
+          to="/cuentos"
+          className="pressable inline-block rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 px-6 py-3 font-extrabold text-white shadow-lg shadow-fuchsia-500/30"
+        >
+          Volver a los cuentos
+        </Link>
+      </div>
     )
   }
 

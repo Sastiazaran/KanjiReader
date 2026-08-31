@@ -5,6 +5,7 @@ import { buildQuiz, type QuizQuestion } from '../lib/quiz'
 import { commitSession } from '../lib/progress-service'
 import { QuizGame, type QuizSummary } from '../components/QuizGame'
 import { PhotoCard } from '../components/PhotoCard'
+import { photosSharingFile, uniquePhotosByFile } from '../lib/photos'
 import { Icon } from '../components/ui/Icon'
 import type { KanjiRecord } from '../types/data'
 
@@ -24,6 +25,8 @@ export function StreetPage() {
     () => new Map(kanjis.map((kanji) => [kanji.kanji, kanji])),
     [kanjis],
   )
+
+  const gallery = useMemo(() => uniquePhotosByFile(photos), [photos])
 
   const photoKanjis = useMemo(
     () =>
@@ -101,29 +104,39 @@ export function StreetPage() {
       )}
 
       <ul className="space-y-4">
-        {photos.map((photo) => {
-          const kanji = byLiteral.get(photo.focus)
+        {gallery.map((photo) => {
+          const related = photosSharingFile(photos, photo.file)
+          const shown = Boolean(revealed[photo.file])
           return (
-            <li key={photo.id} className="space-y-2">
+            <li key={photo.file} className="space-y-2">
               <PhotoCard
                 photo={photo}
                 quiz
-                revealed={Boolean(revealed[photo.id])}
+                revealed={shown}
                 onReveal={() =>
-                  setRevealed((current) => ({ ...current, [photo.id]: true }))
+                  setRevealed((current) => ({ ...current, [photo.file]: true }))
                 }
               />
-              {kanji && revealed[photo.id] && (
-                <Link
-                  to={`/kanji/${kanji.id}`}
-                  state={{ from: '/calle' }}
-                  className="pressable inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/20"
-                >
-                  <span className="text-xl" lang="ja">
-                    {kanji.kanji}
-                  </span>
-                  Ver la ficha de «{kanji.keyword}»
-                </Link>
+              {shown && (
+                <div className="flex flex-wrap gap-2">
+                  {related.map((entry) => {
+                    const kanji = byLiteral.get(entry.focus)
+                    if (!kanji) return null
+                    return (
+                      <Link
+                        key={entry.id}
+                        to={`/kanji/${kanji.id}`}
+                        state={{ from: '/calle' }}
+                        className="pressable inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/20"
+                      >
+                        <span className="text-xl" lang="ja">
+                          {kanji.kanji}
+                        </span>
+                        Ficha de «{kanji.keyword}»
+                      </Link>
+                    )
+                  })}
+                </div>
               )}
             </li>
           )

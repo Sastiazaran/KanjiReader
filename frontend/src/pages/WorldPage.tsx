@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useKanjiData } from '../hooks/useKanjiData'
 import { useStageResults } from '../hooks/useGameState'
 import { THEME_GRADIENTS } from '../lib/game'
+import { isStoryUnlocked, stagesClearedInWorld } from '../lib/stories'
 import { Icon } from '../components/ui/Icon'
 import { Stars } from '../components/ui/Stars'
 
@@ -13,10 +14,7 @@ export function WorldPage() {
   const world = getWorld(worldId)
 
   const clearedStages = useMemo(
-    () =>
-      (world?.stages ?? []).filter(
-        (stage) => (stageResults.get(stage.id)?.stars ?? 0) > 0,
-      ).length,
+    () => stagesClearedInWorld(world, stageResults),
     [world, stageResults],
   )
 
@@ -83,7 +81,7 @@ export function WorldPage() {
           </div>
           <ul className="space-y-2">
             {worldStories.map((story) => {
-              const unlocked = clearedStages >= story.minStagesCleared
+              const unlocked = isStoryUnlocked(story, clearedStages)
               return (
                 <li key={story.id}>
                   {unlocked ? (

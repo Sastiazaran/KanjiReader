@@ -1,37 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Una montaña bajo la luna llena">
   <defs>
-    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#241b5c" />
-      <stop offset="100%" stop-color="#5b3a8c" />
-    </linearGradient>
-    <linearGradient id="monte" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#3d2f7a" />
-      <stop offset="100%" stop-color="#1d1741" />
+    <linearGradient id="luna-cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a2f8a" />
+      <stop offset="55%" stop-color="#c45b8a" />
+      <stop offset="100%" stop-color="#f4b27a" />
     </linearGradient>
   </defs>
-
-  <rect width="800" height="450" fill="url(#cielo)" />
-
-  <circle cx="620" cy="110" r="62" fill="#ffe9a8" />
-  <circle cx="600" cy="98" r="52" fill="#fff6d8" opacity="0.55" />
-
-  <g fill="#ffffff" opacity="0.75">
-    <circle cx="90" cy="70" r="2.5" />
-    <circle cx="180" cy="130" r="2" />
-    <circle cx="260" cy="60" r="3" />
-    <circle cx="360" cy="120" r="2" />
-    <circle cx="450" cy="70" r="2.5" />
-    <circle cx="720" cy="230" r="2" />
-    <circle cx="120" cy="200" r="2" />
+  <rect width="800" height="450" fill="url(#luna-cielo)" />
+  <circle cx="620" cy="95" r="70" fill="#fff4c2" />
+  <circle cx="640" cy="80" r="18" fill="#f7e7a0" opacity="0.55" />
+  <g fill="#ffffff" opacity="0.9">
+    <circle cx="80" cy="50" r="3" />
+    <circle cx="160" cy="90" r="2.5" />
+    <circle cx="250" cy="40" r="3.5" />
+    <circle cx="340" cy="70" r="2" />
+    <circle cx="430" cy="35" r="3" />
+    <circle cx="740" cy="160" r="2.5" />
   </g>
-
-  <path d="M0 450 L230 190 L340 300 L430 210 L640 450 Z" fill="url(#monte)" />
-  <path d="M230 190 L285 245 L175 245 Z" fill="#efeaff" opacity="0.9" />
-  <path d="M430 210 L470 250 L390 250 Z" fill="#efeaff" opacity="0.7" />
-  <path d="M520 450 L700 300 L800 400 L800 450 Z" fill="#161036" />
-
-  <g fill="#0f0b24">
-    <rect x="352" y="392" width="10" height="34" rx="4" />
-    <circle cx="357" cy="382" r="14" />
+  <path d="M0 450 L210 165 L330 275 L450 145 L800 450 Z" fill="#3b2a78" />
+  <path d="M210 165 L275 230 L145 230 Z" fill="#fff7e8" />
+  <path d="M450 145 L505 200 L395 200 Z" fill="#fff7e8" opacity="0.85" />
+  <path d="M0 390 C180 350 360 420 560 370 C680 340 740 380 800 360 L800 450 L0 450 Z" fill="#2a1c58" />
+  <g fill="#1a1238">
+    <rect x="372" y="368" width="14" height="42" rx="6" />
+    <circle cx="379" cy="354" r="16" />
   </g>
 </svg>
