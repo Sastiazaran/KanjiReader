@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useState } from 'react'
-import type { QuizQuestion } from '../lib/quiz'
+import type { QuestionKind, QuizQuestion } from '../lib/quiz'
 import { MAX_HEARTS, xpForAnswer } from '../lib/game'
 import { recordAnswer } from '../lib/progress-service'
 import { playSfx } from '../lib/sfx'
+import { Furigana } from './Furigana'
 import { ProgressBar } from './ui/ProgressBar'
 import { Icon } from './ui/Icon'
 
@@ -24,6 +25,17 @@ interface QuizGameProps {
 }
 
 type Phase = 'answering' | 'feedback'
+
+/**
+ * Preguntas de lectura: la explicación es lo que de verdad se aprende, así que
+ * se muestra también al acertar.
+ */
+const EXPLAIN_ON_SUCCESS = new Set<QuestionKind>([
+  'reading-context',
+  'reading-type',
+  'sentence',
+  'photo',
+])
 
 export function QuizGame({
   questions,
@@ -156,16 +168,37 @@ export function QuizGame({
         }`}
       >
         <p className="mb-4 text-sm font-bold text-[var(--muted)]">{question.help}</p>
-        <p
-          className={
-            question.promptIsJapanese
-              ? 'text-7xl font-bold text-white'
-              : 'text-3xl font-extrabold text-white'
-          }
-          lang={question.promptIsJapanese ? 'ja' : 'es'}
-        >
-          {question.prompt}
-        </p>
+
+        {question.imageSrc && (
+          <img
+            src={question.imageSrc}
+            alt="Cartel fotografiado en Japón"
+            className="mx-auto mb-4 max-h-64 w-full rounded-2xl object-cover"
+          />
+        )}
+
+        {question.promptTokens ? (
+          <Furigana
+            tokens={question.promptTokens}
+            className="text-3xl sm:text-4xl"
+          />
+        ) : (
+          <p
+            className={
+              question.promptIsJapanese
+                ? 'text-7xl font-bold text-white'
+                : 'text-3xl font-extrabold text-white'
+            }
+            lang={question.promptIsJapanese ? 'ja' : 'es'}
+          >
+            {question.prompt}
+          </p>
+        )}
+
+        {question.promptNote && (
+          <p className="mt-3 text-sm text-[var(--muted)]">{question.promptNote}</p>
+        )}
+
         {lastGain != null && (
           <span className="animate-rise pointer-events-none absolute right-6 top-6 text-lg font-extrabold text-emerald-300">
             +{lastGain} XP
@@ -229,12 +262,12 @@ export function QuizGame({
                 : 'Continuar'}
             </button>
           </div>
-          {!isCorrect && (
+          {(!isCorrect || EXPLAIN_ON_SUCCESS.has(question.kind)) && (
             <div className="space-y-2 rounded-2xl bg-black/20 px-4 py-3 text-left">
               <p className="text-sm leading-relaxed text-white">
                 {question.explanation}
               </p>
-              {question.storyHint && (
+              {!isCorrect && question.storyHint && (
                 <p className="text-sm leading-relaxed text-amber-100/90">
                   <span className="font-extrabold text-amber-200">
                     Cuento mágico:{' '}

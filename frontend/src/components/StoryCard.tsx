@@ -1,5 +1,11 @@
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import type { KanjiRecord, MediaMap, VocabRecord } from '../types/data'
+import type {
+  KanjiRecord,
+  MediaMap,
+  SentenceRecord,
+  VocabRecord,
+} from '../types/data'
 import { importanceLabel } from '../lib/game'
 import { getExampleAudioUrl } from '../lib/media'
 import {
@@ -7,14 +13,20 @@ import {
   READING_SEPARATOR,
   readingsToRomajiLine,
 } from '../lib/romaji'
+import { readingSamples } from '../lib/reading-samples'
 import { AudioPlayer } from './AudioPlayer'
 import { StrokeOrder } from './StrokeOrder'
+import { ReadingGuide } from './ReadingGuide'
+import { SentenceList } from './SentenceList'
 import { Icon } from './ui/Icon'
 
 interface StoryCardProps {
   kanji: KanjiRecord
   mediaMap: MediaMap
   vocab: VocabRecord[]
+  sentences?: SentenceRecord[]
+  /** Ejemplos de lectura y frases mostrados (menos en las primeras etapas). */
+  detail?: 'basic' | 'full'
   showLink?: boolean
   /** Internal path to restore after opening the full kanji sheet (e.g. stage learn card). */
   returnTo?: string
@@ -64,12 +76,19 @@ export function StoryCard({
   kanji,
   mediaMap,
   vocab,
+  sentences = [],
+  detail = 'full',
   showLink,
   returnTo,
 }: StoryCardProps) {
   const importance = importanceLabel(kanji.frequency)
   const audioUrl = getExampleAudioUrl(mediaMap, kanji.kanji)
   const example = vocab[0]
+  const sampleLimit = detail === 'full' ? 3 : 1
+  const samples = useMemo(
+    () => readingSamples(kanji, vocab, sentences, sampleLimit),
+    [kanji, vocab, sentences, sampleLimit],
+  )
 
   return (
     <article className="animate-pop space-y-5 rounded-[28px] border border-white/12 bg-white/5 p-5 shadow-2xl shadow-black/30">
@@ -128,6 +147,17 @@ export function StoryCard({
         <ReadingBlock label="Lectura on (china)" readings={kanji.onyomi} />
         <ReadingBlock label="Lectura kun (japonesa)" readings={kanji.kunyomi} />
       </div>
+
+      <ReadingGuide
+        kanji={kanji}
+        samples={samples}
+        showRules={detail === 'full'}
+      />
+
+      <SentenceList
+        sentences={sentences}
+        limit={detail === 'full' ? 2 : 1}
+      />
 
       {example && (
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-white/5 p-4">

@@ -7,6 +7,9 @@ import { StagePage } from './pages/StagePage'
 import { KanjiListPage } from './pages/KanjiListPage'
 import { KanjiDetailPage } from './pages/KanjiDetailPage'
 import { ReviewPage } from './pages/ReviewPage'
+import { StoriesPage } from './pages/StoriesPage'
+import { StoryReaderPage } from './pages/StoryReaderPage'
+import { StreetPage } from './pages/StreetPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { AboutPage } from './pages/AboutPage'
 
@@ -22,6 +25,9 @@ export default function App() {
             <Route path="/kanjis" element={<KanjiListPage />} />
             <Route path="/kanji/:id" element={<KanjiDetailPage />} />
             <Route path="/repaso" element={<ReviewPage />} />
+            <Route path="/cuentos" element={<StoriesPage />} />
+            <Route path="/cuento/:storyId" element={<StoryReaderPage />} />
+            <Route path="/calle" element={<StreetPage />} />
             <Route path="/perfil" element={<ProfilePage />} />
             <Route path="/creditos" element={<AboutPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />

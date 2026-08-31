@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useKanjiData } from '../hooks/useKanjiData'
 import { Icon } from '../components/ui/Icon'
 
 const DONATE_URL =
@@ -30,9 +31,17 @@ const SOURCES = [
     license: 'Código MIT',
     url: 'https://git.pvv.ntnu.no/mugiten/jadb',
   },
+  {
+    name: 'Wikimedia Commons',
+    detail: 'Fotos de carteles, estaciones y calles de Japón (sección «Kanji en la calle»).',
+    license: 'Varias licencias libres',
+    url: 'https://commons.wikimedia.org',
+  },
 ]
 
 export function AboutPage() {
+  const { photos } = useKanjiData()
+
   return (
     <div className="space-y-5">
       <header className="animate-pop rounded-[28px] bg-gradient-to-br from-emerald-500 via-teal-500 to-sky-500 p-6 shadow-2xl shadow-teal-900/40">
@@ -73,7 +82,45 @@ export function AboutPage() {
           corta que ayuda a recordar el significado. No son etimologías
           históricas: son trucos de memoria pensados para quien empieza.
         </p>
+        <p className="mt-3">
+          Las <strong className="text-white">frases de ejemplo</strong> y los{' '}
+          <strong className="text-white">cuentos</strong> están escritos para este
+          proyecto: los cuentos solo usan kanji que ya se han estudiado, como los
+          libros de lectura graduada. La explicación de cuándo suena on y cuándo
+          kun se calcula comparando la palabra con las lecturas de KANJIDIC2.
+        </p>
       </section>
+
+      {photos.length > 0 && (
+        <section className="rounded-3xl border border-white/12 bg-white/5 p-5">
+          <h2 className="mb-3 text-sm font-extrabold uppercase tracking-wide text-[var(--muted)]">
+            Fotos de «Kanji en la calle»
+          </h2>
+          <ul className="space-y-2 text-[13px]">
+            {photos.map((photo) => (
+              <li
+                key={photo.id}
+                className="flex flex-wrap items-baseline gap-x-2 border-b border-white/8 pb-2 last:border-0"
+              >
+                <span className="text-white" lang="ja">
+                  {photo.text}
+                </span>
+                <span className="text-[var(--muted)]">
+                  {photo.credit.author} ·{' '}
+                  <a
+                    href={photo.credit.sourceUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline hover:text-white"
+                  >
+                    {photo.credit.license}
+                  </a>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="rounded-3xl border border-white/8 bg-white/[0.03] px-5 py-4">
         <div className="flex flex-wrap items-center justify-between gap-3">

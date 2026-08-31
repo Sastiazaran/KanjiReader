@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Un pueblo junto al rio">
+  <defs>
+    <linearGradient id="pueblo-cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4eb8f4" />
+      <stop offset="100%" stop-color="#d7f4ff" />
+    </linearGradient>
+    <linearGradient id="pueblo-agua" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3aa0e8" />
+      <stop offset="100%" stop-color="#1b6fb8" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#pueblo-cielo)" />
+  <circle cx="110" cy="78" r="48" fill="#ffe56a" />
+  <g fill="#ffffff">
+    <ellipse cx="320" cy="78" rx="70" ry="28" />
+    <ellipse cx="375" cy="64" rx="48" ry="24" />
+    <ellipse cx="630" cy="110" rx="58" ry="24" />
+  </g>
+  <path d="M0 230 L190 125 L360 230 Z" fill="#7f91d8" />
+  <path d="M430 230 L640 115 L800 230 Z" fill="#6b80cc" />
+  <rect y="226" width="800" height="224" fill="#7ed37a" />
+  <g>
+    <rect x="118" y="248" width="140" height="92" fill="#fff6e4" />
+    <path d="M104 250 L188 198 L272 250 Z" fill="#e25b45" />
+    <rect x="164" y="286" width="46" height="54" fill="#8a4f32" />
+  </g>
+  <g>
+    <rect x="536" y="260" width="122" height="80" fill="#fff6e4" />
+    <path d="M522 262 L597 214 L672 262 Z" fill="#3f6fbc" />
+    <rect x="574" y="294" width="42" height="46" fill="#8a4f32" />
+  </g>
+  <path d="M0 392 C180 338 320 428 490 378 C630 336 710 400 800 368 L800 450 L0 450 Z" fill="url(#pueblo-agua)" />
+  <g stroke="#e7f7ff" stroke-width="6" fill="none" opacity="0.8">
+    <path d="M70 416 q50 -16 100 0" />
+    <path d="M310 428 q50 -16 100 0" />
+    <path d="M560 410 q50 -16 100 0" />
+  </g>
+</svg>

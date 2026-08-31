@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useKanjiData } from '../hooks/useKanjiData'
 import { buildQuiz, type QuizQuestion } from '../lib/quiz'
+import { stageTier, TIERS } from '../lib/difficulty'
 import { BADGES, starsFor } from '../lib/game'
 import {
   commitSession,
@@ -31,8 +32,17 @@ export function StagePage() {
   const { stageId = '' } = useParams()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
-  const { loading, getStage, getWorld, getKanjiById, kanjis, mediaMap, vocabByKanjiId } =
-    useKanjiData()
+  const {
+    loading,
+    getStage,
+    getWorld,
+    getKanjiById,
+    kanjis,
+    mediaMap,
+    vocabByKanjiId,
+    sentencesByKanjiId,
+    photosByKanjiId,
+  } = useKanjiData()
 
   const [phase, setPhase] = useState<Phase>('learn')
   const [outcome, setOutcome] = useState<StageOutcome | null>(null)
@@ -79,10 +89,34 @@ export function StagePage() {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [cardIndex, phase])
 
+  // La dificultad sube con el mundo y con la etapa: primero solo reconocer.
+  const tier = useMemo(
+    () => stageTier(world?.order ?? 1, stage?.index ?? 1),
+    [world, stage],
+  )
+
   const startQuiz = useCallback(() => {
-    setQuestions(buildQuiz(stageKanjis, kanjis))
+    setQuestions(
+      buildQuiz(
+        stageKanjis,
+        {
+          pool: kanjis,
+          vocabByKanjiId,
+          sentencesByKanjiId,
+          photosByKanjiId,
+        },
+        TIERS[tier].kinds,
+      ),
+    )
     setPhase('quiz')
-  }, [stageKanjis, kanjis])
+  }, [
+    stageKanjis,
+    kanjis,
+    vocabByKanjiId,
+    sentencesByKanjiId,
+    photosByKanjiId,
+    tier,
+  ])
 
   const nextStage = useMemo(() => {
     if (!stage || !world) return null
@@ -235,11 +269,20 @@ export function StagePage() {
         </span>
       </div>
 
+      <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5">
+        <span className="rounded-full bg-violet-500/25 px-3 py-1 text-xs font-extrabold text-violet-100">
+          Nivel {tier}: {TIERS[tier].name}
+        </span>
+        <span className="text-xs text-[var(--muted)]">{TIERS[tier].subtitle}</span>
+      </div>
+
       <StoryCard
         key={kanji.id}
         kanji={kanji}
         mediaMap={mediaMap}
         vocab={vocabByKanjiId.get(kanji.id) ?? []}
+        sentences={sentencesByKanjiId.get(kanji.id) ?? []}
+        detail={tier <= 1 ? 'basic' : 'full'}
         showLink
         returnTo={
           cardIndex > 0

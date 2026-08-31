@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Amanecer sobre los campos de arroz">
+  <defs>
+    <linearGradient id="alba-cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5b3aa8" />
+      <stop offset="45%" stop-color="#ff6b4a" />
+      <stop offset="100%" stop-color="#ffd56a" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#alba-cielo)" />
+  <circle cx="400" cy="210" r="78" fill="#fff2b0" />
+  <path d="M0 250 L160 175 L290 250 Z" fill="#6b4cb0" />
+  <path d="M510 250 L670 160 L800 250 Z" fill="#6b4cb0" />
+  <rect y="248" width="800" height="202" fill="#3fa36a" />
+  <g stroke="#b7f0c6" stroke-width="5" opacity="0.8">
+    <path d="M0 292 H800" />
+    <path d="M0 338 H800" />
+    <path d="M0 386 H800" />
+    <path d="M0 430 H800" />
+  </g>
+  <g stroke="#1f6b42" stroke-width="8" opacity="0.45">
+    <path d="M210 248 V450" />
+    <path d="M590 248 V450" />
+  </g>
+  <g fill="#163a26">
+    <rect x="392" y="318" width="16" height="48" rx="6" />
+    <circle cx="400" cy="302" r="18" />
+  </g>
+</svg>

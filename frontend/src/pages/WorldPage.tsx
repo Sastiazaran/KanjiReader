@@ -3,14 +3,25 @@ import { Link, useParams } from 'react-router-dom'
 import { useKanjiData } from '../hooks/useKanjiData'
 import { useStageResults } from '../hooks/useGameState'
 import { THEME_GRADIENTS } from '../lib/game'
+import { isStoryUnlocked, stagesClearedInWorld } from '../lib/stories'
 import { Icon } from '../components/ui/Icon'
 import { Stars } from '../components/ui/Stars'
 
 export function WorldPage() {
   const { worldId = '' } = useParams()
-  const { loading, getWorld, getKanjiById } = useKanjiData()
+  const { loading, getWorld, getKanjiById, stories } = useKanjiData()
   const stageResults = useStageResults()
   const world = getWorld(worldId)
+
+  const clearedStages = useMemo(
+    () => stagesClearedInWorld(world, stageResults),
+    [world, stageResults],
+  )
+
+  const worldStories = useMemo(
+    () => stories.filter((story) => story.worldId === worldId),
+    [stories, worldId],
+  )
 
   // La etapa siguiente se abre al superar la anterior con al menos una estrella.
   const stageViews = useMemo(() => {
@@ -59,6 +70,50 @@ export function WorldPage() {
         <h1 className="text-2xl font-extrabold">{world.name}</h1>
         <p className="text-sm text-white/85">{world.subtitle}</p>
       </header>
+
+      {worldStories.length > 0 && (
+        <section className="rounded-3xl border border-amber-300/25 bg-amber-400/10 p-4">
+          <div className="mb-2 flex items-center gap-2 text-amber-200">
+            <Icon name="book" className="h-5 w-5" />
+            <h2 className="text-sm font-extrabold uppercase tracking-wide">
+              Cuentos de este mundo
+            </h2>
+          </div>
+          <ul className="space-y-2">
+            {worldStories.map((story) => {
+              const unlocked = isStoryUnlocked(story, clearedStages)
+              return (
+                <li key={story.id}>
+                  {unlocked ? (
+                    <Link
+                      to={`/cuento/${story.id}`}
+                      className="pressable flex items-center justify-between gap-3 rounded-2xl bg-white/10 px-4 py-2.5 hover:bg-white/15"
+                    >
+                      <span className="min-w-0">
+                        <span className="block truncate font-bold text-white" lang="ja">
+                          {story.title}
+                        </span>
+                        <span className="block text-xs text-[var(--muted)]">
+                          {story.titleEs}
+                        </span>
+                      </span>
+                      <Icon name="play" className="h-5 w-5 shrink-0 text-amber-200" />
+                    </Link>
+                  ) : (
+                    <div className="flex items-center justify-between gap-3 rounded-2xl bg-black/20 px-4 py-2.5 text-sm text-[var(--muted)]">
+                      <span>
+                        {story.titleEs} · {clearedStages}/{story.minStagesCleared}{' '}
+                        etapas
+                      </span>
+                      <Icon name="lock" className="h-4 w-4 shrink-0" />
+                    </div>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+      )}
 
       <ol className="space-y-3">
         {stageViews.map(({ stage, stars, unlocked, bestAccuracy, preview }) => {

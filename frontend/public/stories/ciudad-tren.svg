@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Un tren llegando a la ciudad">
+  <defs>
+    <linearGradient id="ciudad-cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2f4aa0" />
+      <stop offset="100%" stop-color="#c9a6ee" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#ciudad-cielo)" />
+  <circle cx="140" cy="78" r="50" fill="#ffe56a" />
+  <g fill="#1c2d6a">
+    <rect x="30" y="168" width="100" height="196" />
+    <rect x="150" y="120" width="80" height="244" />
+    <rect x="250" y="188" width="86" height="176" />
+    <rect x="560" y="138" width="82" height="226" />
+    <rect x="662" y="184" width="108" height="180" />
+  </g>
+  <g fill="#ffe56a">
+    <rect x="48" y="190" width="18" height="18" />
+    <rect x="86" y="230" width="18" height="18" />
+    <rect x="168" y="150" width="18" height="18" />
+    <rect x="198" y="210" width="18" height="18" />
+    <rect x="268" y="220" width="18" height="18" />
+    <rect x="578" y="168" width="18" height="18" />
+    <rect x="610" y="228" width="18" height="18" />
+    <rect x="688" y="214" width="18" height="18" />
+    <rect x="726" y="260" width="18" height="18" />
+  </g>
+  <rect y="360" width="800" height="90" fill="#141a3a" />
+  <rect y="350" width="800" height="14" fill="#5a6bb8" />
+  <g>
+    <rect x="318" y="236" width="350" height="116" rx="28" fill="#f4f7ff" />
+    <rect x="318" y="236" width="350" height="30" rx="15" fill="#3f8ef0" />
+    <g fill="#2a3f86">
+      <rect x="348" y="280" width="56" height="44" rx="8" />
+      <rect x="422" y="280" width="56" height="44" rx="8" />
+      <rect x="496" y="280" width="56" height="44" rx="8" />
+      <rect x="570" y="280" width="56" height="44" rx="8" />
+    </g>
+    <circle cx="378" cy="360" r="18" fill="#1a2148" />
+    <circle cx="608" cy="360" r="18" fill="#1a2148" />
+    <circle cx="668" cy="292" r="14" fill="#ffe56a" />
+  </g>
+</svg>

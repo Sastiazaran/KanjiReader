@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="La entrada de una escuela">
+  <defs>
+    <linearGradient id="escuela-cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6ec8f7" />
+      <stop offset="100%" stop-color="#f3fbff" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#escuela-cielo)" />
+  <circle cx="690" cy="70" r="44" fill="#ffe56a" />
+  <rect y="328" width="800" height="122" fill="#c5d3de" />
+  <rect y="314" width="800" height="18" fill="#8ea3b4" />
+  <rect x="168" y="138" width="464" height="190" fill="#fff7ea" />
+  <rect x="168" y="118" width="464" height="28" fill="#d94c3a" />
+  <rect x="366" y="236" width="68" height="92" fill="#8a5533" />
+  <g fill="#8fd8f8" stroke="#3f88b0" stroke-width="3">
+    <rect x="198" y="168" width="64" height="48" />
+    <rect x="282" y="168" width="64" height="48" />
+    <rect x="454" y="168" width="64" height="48" />
+    <rect x="538" y="168" width="64" height="48" />
+    <rect x="198" y="244" width="64" height="48" />
+    <rect x="538" y="244" width="64" height="48" />
+  </g>
+  <rect x="392" y="78" width="12" height="46" fill="#7a8794" />
+  <path d="M404 82 L468 96 L404 110 Z" fill="#e2574a" />
+  <g fill="#4e5d6a">
+    <rect x="86" y="220" width="16" height="108" rx="6" />
+    <rect x="698" y="220" width="16" height="108" rx="6" />
+  </g>
+  <g fill="#24323c">
+    <rect x="278" y="288" width="14" height="42" rx="6" />
+    <circle cx="285" cy="274" r="16" />
+    <rect x="508" y="288" width="14" height="42" rx="6" />
+    <circle cx="515" cy="274" r="16" />
+  </g>
+</svg>

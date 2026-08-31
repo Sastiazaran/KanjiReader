@@ -3,8 +3,10 @@ import { useKanjiData } from '../hooks/useKanjiData'
 import { useProgressRows } from '../hooks/useGameState'
 import { MASTERED_LEVEL } from '../lib/progress-service'
 import { StoryCard } from '../components/StoryCard'
+import { PhotoCard } from '../components/PhotoCard'
 import { ProgressBar } from '../components/ui/ProgressBar'
 import { Icon } from '../components/ui/Icon'
+import { uniquePhotosByFile } from '../lib/photos'
 
 interface DetailLocationState {
   from?: string
@@ -21,12 +23,24 @@ export function KanjiDetailPage() {
   const { id: idParam } = useParams()
   const location = useLocation()
   const id = Number(idParam)
-  const { loading, error, getKanjiById, vocabByKanjiId, mediaMap } = useKanjiData()
+  const {
+    loading,
+    error,
+    getKanjiById,
+    vocabByKanjiId,
+    sentencesByKanjiId,
+    photosByKanjiId,
+    mediaMap,
+  } = useKanjiData()
   const progressRows = useProgressRows()
 
   const kanji = Number.isFinite(id) ? getKanjiById(id) : undefined
   const progress = progressRows.find((row) => row.kanjiId === id)
   const vocab = kanji ? (vocabByKanjiId.get(kanji.id) ?? []) : []
+  const sentences = kanji ? (sentencesByKanjiId.get(kanji.id) ?? []) : []
+  const photos = uniquePhotosByFile(
+    kanji ? (photosByKanjiId.get(kanji.id) ?? []) : [],
+  )
   const returnTo = safeReturnPath(
     (location.state as DetailLocationState | null)?.from,
   )
@@ -62,7 +76,23 @@ export function KanjiDetailPage() {
         {returnTo ? 'Volver a la lección' : 'Todos los kanji'}
       </Link>
 
-      <StoryCard kanji={kanji} mediaMap={mediaMap} vocab={vocab} />
+      <StoryCard
+        kanji={kanji}
+        mediaMap={mediaMap}
+        vocab={vocab}
+        sentences={sentences}
+      />
+
+      {photos.length > 0 && (
+        <section className="space-y-3 rounded-3xl border border-white/12 bg-white/5 p-5">
+          <h2 className="text-sm font-extrabold uppercase tracking-wide text-[var(--muted)]">
+            Así se ve en Japón
+          </h2>
+          {photos.slice(0, 2).map((photo) => (
+            <PhotoCard key={photo.id} photo={photo} />
+          ))}
+        </section>
+      )}
 
       <section className="rounded-3xl border border-white/12 bg-white/5 p-5">
         <div className="mb-2 flex items-center justify-between">

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Un bosque con flores">
+  <defs>
+    <linearGradient id="bosque-cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff9a5c" />
+      <stop offset="100%" stop-color="#ffe7c2" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bosque-cielo)" />
+  <circle cx="670" cy="92" r="58" fill="#ff7043" />
+  <rect y="318" width="800" height="132" fill="#5cb36a" />
+  <path d="M0 318 C170 278 310 348 470 314 C620 284 720 338 800 308 L800 330 L0 330 Z" fill="#3f9450" />
+  <g fill="#24703a">
+    <path d="M90 318 L160 140 L230 318 Z" />
+    <path d="M80 250 L160 100 L240 250 Z" />
+    <path d="M540 318 L620 120 L700 318 Z" />
+    <path d="M530 236 L620 88 L710 236 Z" />
+  </g>
+  <g fill="#8a5530">
+    <rect x="148" y="314" width="22" height="36" />
+    <rect x="608" y="314" width="22" height="36" />
+  </g>
+  <g>
+    <rect x="338" y="228" width="12" height="120" fill="#2f8a44" />
+    <circle cx="344" cy="214" r="32" fill="#ffb3d0" />
+    <circle cx="344" cy="214" r="12" fill="#ffe56a" />
+    <rect x="428" y="262" width="10" height="86" fill="#2f8a44" />
+    <circle cx="433" cy="250" r="24" fill="#fff0f6" />
+    <circle cx="433" cy="250" r="9" fill="#ffd166" />
+    <rect x="258" y="274" width="10" height="74" fill="#2f8a44" />
+    <circle cx="263" cy="264" r="20" fill="#ff9ec4" />
+  </g>
+  <g fill="#163a26">
+    <rect x="498" y="300" width="14" height="46" rx="6" />
+    <circle cx="505" cy="286" r="16" />
+  </g>
+</svg>
